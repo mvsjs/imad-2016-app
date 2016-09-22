@@ -2,7 +2,7 @@ console.log('Loaded!');
 var element = document.getElementById('main-text');
 element.innerHTML = 'New value';
 var marginLeft = 0;
-function moveRight {
+function moveRight() {
     marginLeft = marginLeft + 10;
     img.style.marginLeft = marginLeft + 'px';
 }
