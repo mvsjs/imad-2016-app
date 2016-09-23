@@ -1,13 +1,14 @@
-console.log('Loaded!');
-var element = document.getElementById('main-text');
-element.innerHTML = 'New value';
-var marginLeft = 0;
-function moveRight() {
-    marginLeft = marginLeft + 10;
-    img.style.marginLeft = marginLeft + 'px';
-}
+//counter code
+var button = document.getElementById('counter');
+var counter = 0;
 
-var img = document.getElementById('modi');
-img.onclick = function() {
-    var interval = setInterval(moveRight, 50);
-};
+button.onClick = function() {
+    
+    
+    
+    
+    //render the variable in the correct span
+    counter = counter + 1;
+    var span = document.getElemenetById('count');
+    span.innerHTML = counter.toString();
+}
