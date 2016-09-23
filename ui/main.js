@@ -14,7 +14,7 @@ var request = new XMLHttpRequest();
                 span.innerHTML = counter.toString();
             }
         }
-    }
+    };
     request.open('GET','http://mvsjs.imad.hasura-app.io/counter', true);
     request.send(null);
     
