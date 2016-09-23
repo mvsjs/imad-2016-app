@@ -28,7 +28,7 @@ var request = new XMLHttpRequest();
 };
 
 
-/*var submit = document.getElementById('submit_btn');
+var submit = document.getElementById('submit_btn');
 submit.onclick = function() {
     
 var names = ['name1', 'name2', 'name3', 'name4'];
@@ -38,4 +38,4 @@ for (var i=0; i < names.length; i++) {
 }
 var ul = document.getElementById('namelist');
 ul.innerHTML = list;
-};*/
+};
