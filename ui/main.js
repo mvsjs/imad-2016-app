@@ -1,30 +1,42 @@
-//counter code
-var button = document.getElementById('counter');
+var express   =    require("express");
+var mysql     =    require('mysql');
+var app       =    express();
 
-button.onclick = function() {
+var pool      =    mysql.createPool({
+    connectionLimit : 100, //important
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'address_book',
+    debug    :  false
+});
+
+function handle_database(req,res) {
     
-var request = new XMLHttpRequest();
-    
-    
-    request.onreadystatechange = function() {
-        if (request.readyState === XMLHttpRequest.DONE) {
-            if (request.status === 200) {
-                var names = request.responseText;
-                names = JSON.parse(names);
-                var list = '';
-                for (var i=0; i < names.length; i++) {
-                list += '<li>' + names[i] + '</li>';
+    pool.getConnection(function(err,connection){
+        if (err) {
+          res.json({"code" : 100, "status" : "Error in connection database"});
+          return;
+        }   
+
+        console.log('connected as id ' + connection.threadId);
+        
+        connection.query("select * from user",function(err,rows){
+            connection.release();
+            if(!err) {
+                res.json(rows);
+            }           
+        });
+
+        connection.on('error', function(err) {      
+              res.json({"code" : 100, "status" : "Error in connection database"});
+              return;     
+        });
+  });
 }
-                var ul = document.getElementById('namelist');
-                ul.innerHTML = list;
-            }
-        }
-    };
-    var nameInput = document.getElementById('name');
-    var name = nameInput.value;
-    request.open('GET','http://mvsjs.imad.hasura-app.io/submit-name' + name, true);
-    request.send(null);
-    
-};
 
+app.get("/",function(req,res){-
+        handle_database(req,res);
+});
 
+app.listen(3000);
